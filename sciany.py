@@ -13,12 +13,12 @@ st.set_page_config(
 )
 
 st.title("🏗️ Układ Płyt GRAFEXPO")
-st.write("Wprowadź wymiary ściany oraz dostępnych płyt, aby wygenerować plan rozkroju oraz pełny raport PDF ze spisem.")
+st.write("Wprowadź wymiary ściany/podłogi oraz dostępnych płyt, aby wygenerować plan rozkroju oraz pełny raport PDF ze spisem.")
 
 # --- PANEL BOCZNY (INPUTY) ---
 st.sidebar.header("⚙️ Parametry wejściowe")
-sciana_szer = st.sidebar.number_input("Szerokość ściany (mm)", min_value=100.0, value=12500.0, step=100.0)
-sciana_wys = st.sidebar.number_input("Wysokość ściany (mm)", min_value=100.0, value=9500.0, step=100.0)
+sciana_szer = st.sidebar.number_input("Szerokość ściany/podłogi (mm)", min_value=100.0, value=12500.0, step=100.0)
+sciana_wys = st.sidebar.number_input("Wysokość ściany/podłogi (mm)", min_value=100.0, value=9500.0, step=100.0)
 plyta_szer = st.sidebar.number_input("Szerokość płyty (mm)", min_value=100.0, value=2000.0, step=50.0)
 plyta_wys = st.sidebar.number_input("Wysokość płyty (mm)", min_value=100.0, value=2750.0, step=50.0)
 
@@ -99,7 +99,7 @@ margines = max(sciana_szer, sciana_wys) * 0.05
 ax_app.set_xlim(-margines, sciana_szer + margines)
 ax_app.set_ylim(-margines, sciana_wys + margines)
 ax_app.set_aspect('equal')
-ax_app.set_title(f"Układ Płyt GRAFEXPO – Ściana ({sciana_szer:.0f} x {sciana_wys:.0f} mm) | Szacunek: {calkowite_zapotrzebowanie} płyt", fontsize=11, weight='bold')
+ax_app.set_title(f"Układ płyt ściany/podłogi ({sciana_szer:.0f} x {sciana_wys:.0f} mm) | Szacunek: {calkowite_zapotrzebowanie} płyt", fontsize=11, weight='bold')
 ax_app.set_xlabel("Szerokość (mm)")
 ax_app.set_ylabel("Wysokość (mm)")
 ax_app.grid(True, linestyle='--', alpha=0.5)
@@ -136,7 +136,7 @@ def generuj_raport_pdf_ze_spisem():
     tekst_raportu = (
         f"UKŁAD PŁYT GRAFEXPO - RAPORT ROZKROJU I ZAPOTRZEBOWANIA\n"
         f"========================================================================\n"
-        f"• Wymiary ściany: {sciana_szer:.0f} x {sciana_wys:.0f} mm\n"
+        f"• Wymiary ściany/podłogi: {sciana_szer:.0f} x {sciana_wys:.0f} mm\n"
         f"• Wymiary płyty bazowej: {plyta_szer:.0f} x {plyta_wys:.0f} mm\n"
         f"• Szacowana całkowita liczba płyt do zakupu: {calkowite_zapotrzebowanie} szt.\n\n"
         f"SPIS POTRZEBNYCH ELEMENTÓW (WYMIARY DOCINEK):\n"
@@ -170,7 +170,7 @@ def generuj_raport_pdf_ze_spisem():
     ax_pdf.set_xlim(-margines, sciana_szer + margines)
     ax_pdf.set_ylim(-margines, sciana_wys + margines)
     ax_pdf.set_aspect('equal')
-    ax_pdf.set_title("Układ Płyt GRAFEXPO – Schemat rozkroju", fontsize=11, weight='bold')
+    ax_pdf.set_title("Układ płyt ściany/podłogi – Schemat rozkroju", fontsize=11, weight='bold')
     ax_pdf.set_xlabel("Szerokość (mm)")
     ax_pdf.set_ylabel("Wysokość (mm)")
     ax_pdf.grid(True, linestyle='--', alpha=0.5)
